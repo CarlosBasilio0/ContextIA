@@ -1,0 +1,1699 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+    ContextIA | Análisis Inteligente del Lenguaje
+</title>
+
+<link
+    rel="stylesheet"
+    href="{% static 'css/estilos.css' %}"
+>
+
+
+</head>
+
+<body>
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<header class="navbar">
+
+<div class="logo">
+    Context<span>IA</span>
+</div>
+
+<nav>
+
+    <a href="#inicio">
+        Inicio
+    </a>
+
+    <a href="#analizador">
+        Analizador
+    </a>
+
+    {% if resultado %}
+    <a href="#resultados">
+        Resultados
+    </a>
+    {% endif %}
+
+    <a href="#como-funciona">
+        ¿Cómo funciona?
+    </a>
+
+</nav>
+
+
+</header>
+
+<!-- =========================================================
+     CONTENIDO PRINCIPAL
+========================================================= -->
+
+<main id="inicio">
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+
+<div class="hero-content">
+
+    <div class="badge">
+        INTELIGENCIA ARTIFICIAL · PLN
+    </div>
+
+    <h1 class="hero-title">
+
+        Comprende el
+        <span id="animatedWord">
+            lenguaje.
+        </span>
+
+    </h1>
+
+    <p class="hero-description">
+
+        ContextIA analiza palabras y frases mediante
+        Procesamiento de Lenguaje Natural para identificar
+        significados, expresiones, ambigüedades y contexto.
+
+    </p>
+
+    <div class="hero-actions">
+
+        <a
+            href="#analizador"
+            class="btn-primary"
+        >
+            Comenzar análisis
+            <span>→</span>
+        </a>
+
+        <a
+            href="#como-funciona"
+            class="btn-secondary"
+        >
+            Conocer el proyecto
+        </a>
+
+    </div>
+
+</div>
+
+
+<div class="hero-visual">
+
+    <div class="hero-glow hero-glow-1"></div>
+
+    <div class="hero-glow hero-glow-2"></div>
+
+    <div class="floating-card card-top">
+
+        <span>
+            CONTEXTO DETECTADO
+        </span>
+
+        <strong>
+            🧠 Inteligente
+        </strong>
+
+    </div>
+
+
+    <div class="brain-card">
+
+        <div class="brain-icon">
+            🧠
+        </div>
+
+        <span>
+            CONTEXTIA
+        </span>
+
+        <strong>
+            Análisis inteligente
+        </strong>
+
+        <small>
+            Comprendiendo el lenguaje
+        </small>
+
+    </div>
+
+
+    <div class="floating-card card-bottom">
+
+        <span>
+            INTERPRETACIÓN
+        </span>
+
+        <strong>
+            Según el contexto
+        </strong>
+
+    </div>
+
+</div>
+
+
+</section>
+
+<!-- =========================================================
+     ANALIZADOR
+========================================================= -->
+
+<section
+    id="analizador"
+    class="analyzer-section"
+>
+
+```
+<div class="section-title">
+
+    <span class="section-label">
+        ANALIZADOR DE TEXTO
+    </span>
+
+    <h2>
+        Analiza cualquier frase
+    </h2>
+
+    <p>
+        Introduce una palabra, una frase o un texto completo.
+        ContextIA analizará su estructura y significado.
+    </p>
+
+</div>
+
+
+<div class="analyzer-card">
+
+    <div class="analyzer-top-line"></div>
+
+    <div class="analyzer-header">
+
+        <div>
+
+            <span class="mini-label">
+                ENTRADA DE TEXTO
+            </span>
+
+            <h3>
+                ¿Qué quieres analizar?
+            </h3>
+
+            <p class="analyzer-description">
+                Escribe una palabra, expresión o frase.
+            </p>
+
+        </div>
+
+        <div class="ai-status">
+
+            <span></span>
+
+            Sistema disponible
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         FORMULARIO
+    ================================================== -->
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="input-header">
+
+            <div class="input-title-group">
+
+                <label for="texto">
+                    Texto a analizar
+                </label>
+
+                <small>
+                    Introduce el contenido que deseas procesar
+                </small>
+
+            </div>
+
+            <span class="input-badge">
+                PLN
+            </span>
+
+        </div>
+
+
+        <div class="textarea-wrapper">
+
+            <textarea
+                id="texto"
+                name="texto"
+                placeholder="Escribe aquí una palabra, frase o texto para analizar..."
+                required
+            >{% if resultado %}{{ resultado.texto }}{% endif %}</textarea>
+
+            <div class="textarea-counter">
+
+                <span>
+                    Texto libre
+                </span>
+
+                <span id="char-count">
+                    0 caracteres
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="examples">
+
+            <span class="examples-label">
+                Prueba con un ejemplo:
+            </span>
+
+            <button
+                type="button"
+                onclick="setExample('La computadora funciona rápidamente')"
+            >
+                ✦ La computadora funciona rápidamente
+            </button>
+
+            <button
+                type="button"
+                onclick="setExample('Mi amigo es un crack')"
+            >
+                ✦ Mi amigo es un crack
+            </button>
+
+            <button
+                type="button"
+                onclick="setExample('El profesor es un teso')"
+            >
+                ✦ El profesor es un teso
+            </button>
+
+        </div>
+
+
+        <div class="form-footer">
+
+            <span class="processing-info">
+                🔒 Procesamiento local
+            </span>
+
+            <button
+                type="submit"
+                class="btn-primary analyze-button"
+            >
+                ✦ Analizar texto →
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+{% if resultado %}
+
+<!-- =========================================================
+     RESULTADOS
+========================================================= -->
+
+<section
+    id="resultados"
+    class="results-section"
+>
+
+
+<!-- =====================================================
+     CABECERA
+====================================================== -->
+
+<div class="results-header">
+
+    <div>
+
+        <span class="section-label">
+            RESULTADO DEL ANÁLISIS
+        </span>
+
+        <h2>
+            Análisis completado
+        </h2>
+
+        <p>
+            ContextIA ha procesado el texto correctamente.
+        </p>
+
+    </div>
+
+    <div class="success-badge">
+        ✓ Procesado correctamente
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TEXTO ORIGINAL
+====================================================== -->
+
+<div class="original-text">
+
+    <div class="original-icon">
+        "
+    </div>
+
+    <div>
+
+        <span>
+            TEXTO ANALIZADO
+        </span>
+
+        <p>
+            {{ resultado.texto }}
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     RESUMEN NUMÉRICO
+====================================================== -->
+
+<div class="result-summary">
+
+    <div class="summary-item">
+
+        <span class="summary-icon">
+            Aa
+        </span>
+
+        <div>
+
+            <strong>
+                {{ resultado.pln.numero_palabras }}
+            </strong>
+
+            <span>
+                Palabras
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="summary-item">
+
+        <span class="summary-icon">
+            ¶
+        </span>
+
+        <div>
+
+            <strong>
+                {{ resultado.pln.numero_oraciones }}
+            </strong>
+
+            <span>
+                Oraciones
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="summary-item">
+
+        <span class="summary-icon">
+            ✦
+        </span>
+
+        <div>
+
+            <strong>
+                {{ resultado.modismos|length }}
+            </strong>
+
+            <span>
+                Expresiones
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="summary-item">
+
+        <span class="summary-icon">
+            ◉
+        </span>
+
+        <div>
+
+            <strong>
+                {{ resultado.contextos|length }}
+            </strong>
+
+            <span>
+                Contextos
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     00 · SIGNIFICADO GENERAL
+====================================================== -->
+
+<div class="result-card general-meaning-card">
+
+    <div class="result-card-header">
+
+        <div class="number">
+            00
+        </div>
+
+        <div>
+
+            <span class="result-label">
+                SIGNIFICADO
+            </span>
+
+            <h3>
+                Significado general de la frase
+            </h3>
+
+        </div>
+
+    </div>
+
+
+    <div class="general-meaning">
+
+        <div class="general-meaning-icon">
+            💡
+        </div>
+
+        <div class="general-meaning-content">
+
+            <strong>
+                ¿Qué significa el texto?
+            </strong>
+
+            <p>
+                {{ resultado.significado_general }}
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     01 · MODISMOS
+====================================================== -->
+
+<div class="result-card">
+
+    <div class="result-card-header">
+
+        <div class="number">
+            01
+        </div>
+
+        <div>
+
+            <span class="result-label">
+                EXPRESIONES
+            </span>
+
+            <h3>
+                Modismos detectados
+            </h3>
+
+        </div>
+
+    </div>
+
+
+    {% if resultado.modismos %}
+
+        {% for modismo in resultado.modismos %}
+
+        <div class="expression">
+
+            <div class="expression-top">
+
+                <div class="expression-title">
+
+                    <span class="expression-icon">
+                        ✦
+                    </span>
+
+                    <strong>
+                        {{ modismo.nombre }}
+                    </strong>
+
+                </div>
+
+                <span class="detected-badge">
+                    Detectado
+                </span>
+
+            </div>
+
+            <p>
+                {{ modismo.significado }}
+            </p>
+
+
+            {% if modismo.contextos %}
+
+            <div class="context-tags">
+
+                {% for contexto in modismo.contextos %}
+
+                <span>
+                    {{ contexto }}
+                </span>
+
+                {% endfor %}
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+    <div class="empty-result">
+
+        <span class="empty-icon">
+            🔎
+        </span>
+
+        <div>
+
+            <strong>
+                No se detectaron modismos registrados.
+            </strong>
+
+            <p>
+                No se encontró una expresión conocida
+                dentro de la base de conocimiento actual.
+            </p>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+
+<!-- =====================================================
+     02 · AMBIGÜEDADES
+====================================================== -->
+
+<div class="result-card">
+
+    <div class="result-card-header">
+
+        <div class="number">
+            02
+        </div>
+
+        <div>
+
+            <span class="result-label">
+                SEMÁNTICA
+            </span>
+
+            <h3>
+                Posibles interpretaciones
+            </h3>
+
+        </div>
+
+    </div>
+
+
+    {% if resultado.ambiguedades %}
+
+        {% for ambiguedad in resultado.ambiguedades %}
+
+        <div class="ambiguity">
+
+            <div class="ambiguity-word">
+                🔀 {{ ambiguedad.palabra }}
+            </div>
+
+            <div class="interpretations">
+
+                <div class="interpretation-box literal-box">
+
+                    <div class="interpretation-header">
+
+                        <span class="interpretation-dot literal-dot"></span>
+
+                        <strong>
+                            LITERAL
+                        </strong>
+
+                    </div>
+
+                    <p>
+                        {{ ambiguedad.literal }}
+                    </p>
+
+                </div>
+
+
+                <div class="interpretation-box figurado-box">
+
+                    <div class="interpretation-header">
+
+                        <span class="interpretation-dot figurado-dot"></span>
+
+                        <strong>
+                            FIGURADO
+                        </strong>
+
+                    </div>
+
+                    <p>
+                        {{ ambiguedad.figurado }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+    <div class="empty-result">
+
+        <span class="empty-icon">
+            ✓
+        </span>
+
+        <div>
+
+            <strong>
+                No se detectó una ambigüedad registrada.
+            </strong>
+
+            <p>
+                El texto no contiene palabras registradas
+                con diferentes interpretaciones.
+            </p>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+
+<!-- =====================================================
+     03 · CONTEXTOS
+====================================================== -->
+
+<div class="result-card">
+
+    <div class="result-card-header">
+
+        <div class="number">
+            03
+        </div>
+
+        <div>
+
+            <span class="result-label">
+                ANÁLISIS CONTEXTUAL
+            </span>
+
+            <h3>
+                Tema y contexto identificado
+            </h3>
+
+        </div>
+
+    </div>
+
+
+    {% if resultado.contextos %}
+
+    <div class="contexts-grid">
+
+        {% for contexto in resultado.contextos %}
+
+        <div class="context-card">
+
+            <div class="context-icon">
+
+                {% if contexto.nombre == "Académico" %}
+                    🎓
+                {% elif contexto.nombre == "Deportivo" %}
+                    ⚽
+                {% elif contexto.nombre == "Laboral" %}
+                    💼
+                {% elif contexto.nombre == "Transporte" %}
+                    ✈️
+                {% elif contexto.nombre == "Social" %}
+                    👥
+                {% elif contexto.nombre == "Tecnología" %}
+                    💻
+                {% else %}
+                    🌎
+                {% endif %}
+
+            </div>
+
+            <div class="context-content">
+
+                <div class="context-title-row">
+
+                    <h4>
+                        {{ contexto.nombre }}
+                    </h4>
+
+                    <span>
+                        Detectado
+                    </span>
+
+                </div>
+
+                <p>
+                    Palabras relacionadas encontradas
+                </p>
+
+                <div class="word-tags">
+
+                    {% for palabra in contexto.palabras %}
+
+                    <span>
+                        {{ palabra }}
+                    </span>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-result">
+
+        <span class="empty-icon">
+            🌎
+        </span>
+
+        <div>
+
+            <strong>
+                No se identificó un contexto específico.
+            </strong>
+
+            <p>
+                El sistema no encontró palabras relacionadas
+                con los contextos registrados.
+            </p>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+
+<!-- =====================================================
+     03A · PALABRAS RELEVANTES
+====================================================== -->
+
+<div class="result-card">
+
+    <div class="result-card-header">
+
+        <div class="number">
+            03A
+        </div>
+
+        <div>
+
+            <span class="result-label">
+                ANÁLISIS LÉXICO
+            </span>
+
+            <h3>
+                Palabras relevantes
+            </h3>
+
+        </div>
+
+    </div>
+
+
+    {% if resultado.palabras_relevantes %}
+
+    <div class="word-tags relevant-words">
+
+        {% for palabra in resultado.palabras_relevantes %}
+
+        <span>
+            🔎 {{ palabra }}
+        </span>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-result">
+
+        <span class="empty-icon">
+            🔎
+        </span>
+
+        <div>
+
+            <strong>
+                No se identificaron palabras relevantes.
+            </strong>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+
+<!-- =====================================================
+     04 · INTERPRETACIÓN CONTEXTUAL
+====================================================== -->
+
+<div class="result-card comparison-card">
+
+    <div class="result-card-header">
+
+        <div class="number">
+            04
+        </div>
+
+        <div>
+
+            <span class="result-label">
+                INTERPRETACIÓN
+            </span>
+
+            <h3>
+                Interpretación contextual
+            </h3>
+
+        </div>
+
+    </div>
+
+
+    {% if resultado.comparaciones %}
+
+    <div class="comparison-grid">
+
+        {% for comparacion in resultado.comparaciones %}
+
+        <div class="comparison-item">
+
+            <div class="comparison-context">
+
+                <span class="context-symbol">
+
+                    {% if comparacion.contexto == "Deportivo" %}
+                        ⚽
+                    {% elif comparacion.contexto == "Transporte" %}
+                        ✈️
+                    {% elif comparacion.contexto == "Académico" %}
+                        🎓
+                    {% elif comparacion.contexto == "Laboral" %}
+                        💼
+                    {% elif comparacion.contexto == "Social" %}
+                        👥
+                    {% elif comparacion.contexto == "Tecnología" %}
+                        💻
+                    {% else %}
+                        💬
+                    {% endif %}
+
+                </span>
+
+                <span>
+                    {{ comparacion.contexto }}
+                </span>
+
+            </div>
+
+
+            <h4>
+                {{ comparacion.expresion }}
+            </h4>
+
+
+            <div class="interpretation-type {% if comparacion.tipo == 'Literal' %}literal{% else %}figurado{% endif %}">
+
+                <span class="type-icon">
+                    ●
+                </span>
+
+                <strong>
+                    {{ comparacion.tipo|upper }}
+                </strong>
+
+                <span>
+                    Significado contextual
+                </span>
+
+            </div>
+
+
+            <p class="comparison-description">
+                {{ comparacion.significado }}
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <div class="comparison-explanation">
+
+        <div class="explanation-icon">
+            🧠
+        </div>
+
+        <div>
+
+            <strong>
+                ¿Cómo se obtuvo esta interpretación?
+            </strong>
+
+            <p>
+                ContextIA analiza las palabras de la oración,
+                identifica indicadores de contexto y relaciona
+                las expresiones encontradas con su significado
+                para determinar la interpretación más apropiada.
+            </p>
+
+        </div>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-result">
+
+        <span class="empty-icon">
+            🧠
+        </span>
+
+        <div>
+
+            <strong>
+                No se requiere una interpretación contextual específica.
+            </strong>
+
+            <p>
+                El sistema no encontró expresiones que requieran
+                una interpretación contextual adicional.
+            </p>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+
+<!-- =====================================================
+     05 · PLN
+====================================================== -->
+
+<div class="result-card">
+
+    <div class="result-card-header">
+
+        <div class="number">
+            05
+        </div>
+
+        <div>
+
+            <span class="result-label">
+                PROCESAMIENTO DE LENGUAJE NATURAL
+            </span>
+
+            <h3>
+                Análisis lingüístico
+            </h3>
+
+        </div>
+
+    </div>
+
+
+    <div class="pln-introduction">
+
+        <div class="pln-introduction-icon">
+            🧠
+        </div>
+
+        <div>
+
+            <strong>
+                Procesamiento de Lenguaje Natural
+            </strong>
+
+            <p>
+                ContextIA utiliza spaCy y técnicas de
+                Procesamiento de Lenguaje Natural para
+                identificar estructuras lingüísticas,
+                categorías gramaticales, lemas y entidades.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="stats-grid">
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                Aa
+            </div>
+
+            <strong>
+                {{ resultado.pln.numero_palabras }}
+            </strong>
+
+            <span>
+                Palabras procesadas
+            </span>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                ¶
+            </div>
+
+            <strong>
+                {{ resultado.pln.numero_oraciones }}
+            </strong>
+
+            <span>
+                Oraciones detectadas
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="subsection-heading">
+
+        <span></span>
+
+        <h4>
+            Categorías gramaticales y lemas
+        </h4>
+
+    </div>
+
+
+    <div class="linguistic-grid">
+
+        {% for palabra in resultado.pln.palabras %}
+
+        <div class="linguistic-item">
+
+            <div class="linguistic-word">
+                {{ palabra.texto }}
+            </div>
+
+            <span>
+                {{ palabra.categoria }}
+            </span>
+
+            <small>
+                Lema: {{ palabra.lema }}
+            </small>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <div class="subsection-heading">
+
+        <span></span>
+
+        <h4>
+            Entidades identificadas
+        </h4>
+
+    </div>
+
+
+    {% if resultado.pln.entidades %}
+
+    <div class="entities">
+
+        {% for entidad in resultado.pln.entidades %}
+
+        <div class="entity">
+
+            <strong>
+                {{ entidad.texto }}
+            </strong>
+
+            <span>
+                {{ entidad.tipo }}
+            </span>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="no-entities">
+
+        <span>
+            ◇
+        </span>
+
+        No se identificaron entidades nombradas en el texto.
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+
+</section>
+
+{% endif %}
+
+<!-- =========================================================
+     CÓMO FUNCIONA
+========================================================= -->
+
+<section
+    id="como-funciona"
+    class="how-section"
+>
+
+
+<div class="section-title">
+
+    <span class="section-label">
+        PROCESAMIENTO DE LENGUAJE NATURAL
+    </span>
+
+    <h2>
+        ¿Cómo funciona ContextIA?
+    </h2>
+
+    <p>
+        El sistema combina Procesamiento de Lenguaje Natural,
+        spaCy y una base de conocimiento especializada.
+    </p>
+
+</div>
+
+
+<div class="steps">
+
+    <div class="step">
+
+        <div class="step-number">
+            01
+        </div>
+
+        <div class="step-icon">
+            ✍️
+        </div>
+
+        <h3>
+            Entrada
+        </h3>
+
+        <p>
+            El usuario introduce una palabra, frase o texto.
+        </p>
+
+    </div>
+
+
+    <div class="step">
+
+        <div class="step-number">
+            02
+        </div>
+
+        <div class="step-icon">
+            ⚙️
+        </div>
+
+        <h3>
+            Procesamiento
+        </h3>
+
+        <p>
+            spaCy procesa el texto e identifica categorías,
+            lemas y entidades.
+        </p>
+
+    </div>
+
+
+    <div class="step">
+
+        <div class="step-number">
+            03
+        </div>
+
+        <div class="step-icon">
+            🔍
+        </div>
+
+        <h3>
+            Contexto
+        </h3>
+
+        <p>
+            ContextIA busca expresiones y palabras relacionadas.
+        </p>
+
+    </div>
+
+
+    <div class="step">
+
+        <div class="step-number">
+            04
+        </div>
+
+        <div class="step-icon">
+            🧠
+        </div>
+
+        <h3>
+            Interpretación
+        </h3>
+
+        <p>
+            El sistema genera una interpretación general
+            y contextual.
+        </p>
+
+    </div>
+
+</div>
+
+
+</section>
+
+<!-- =========================================================
+     TECNOLOGÍAS
+========================================================= -->
+
+<section class="technology-section">
+
+
+<div class="section-title">
+
+    <span class="section-label">
+        TECNOLOGÍAS UTILIZADAS
+    </span>
+
+    <h2>
+        Construido con herramientas de PLN
+    </h2>
+
+    <p>
+        Tecnologías utilizadas para desarrollar ContextIA.
+    </p>
+
+</div>
+
+
+<div class="technology-grid">
+
+    <div class="technology-card">
+
+        <div class="technology-icon">
+            🐍
+        </div>
+
+        <strong>
+            Python
+        </strong>
+
+        <span>
+            Lenguaje de programación
+        </span>
+
+    </div>
+
+
+    <div class="technology-card">
+
+        <div class="technology-icon">
+            ◈
+        </div>
+
+        <strong>
+            Django
+        </strong>
+
+        <span>
+            Framework web
+        </span>
+
+    </div>
+
+
+    <div class="technology-card">
+
+        <div class="technology-icon">
+            🧠
+        </div>
+
+        <strong>
+            spaCy
+        </strong>
+
+        <span>
+            Procesamiento de Lenguaje Natural
+        </span>
+
+    </div>
+
+
+    <div class="technology-card">
+
+        <div class="technology-icon">
+            ✦
+        </div>
+
+        <strong>
+            PLN
+        </strong>
+
+        <span>
+            Procesamiento de Lenguaje Natural
+        </span>
+
+    </div>
+
+</div>
+
+
+</section>
+
+</main>
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+
+<div class="footer-content">
+
+    <div class="footer-logo">
+        Context<span>IA</span>
+    </div>
+
+    <p>
+        Prototipo académico de Procesamiento de Lenguaje Natural
+    </p>
+
+    <small>
+        2026 · Inteligencia Artificial · ContextIA
+    </small>
+
+</div>
+
+
+</footer>
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+/* =========================================================
+   PALABRAS ANIMADAS
+========================================================= */
+
+const animatedWord =
+    document.getElementById("animatedWord");
+
+const animatedWords = [
+    "lenguaje.",
+    "contexto.",
+    "significado."
+];
+
+let wordIndex = 0;
+
+if (animatedWord) {
+
+    setInterval(function () {
+
+        wordIndex =
+            (wordIndex + 1) % animatedWords.length;
+
+        animatedWord.textContent =
+            animatedWords[wordIndex];
+
+    }, 2800);
+
+}
+
+
+/* =========================================================
+   EJEMPLOS
+========================================================= */
+
+function setExample(texto) {
+
+    const textarea =
+        document.getElementById("texto");
+
+    if (!textarea) {
+        return;
+    }
+
+    textarea.value = texto;
+
+    updateCharacterCount();
+
+    textarea.focus();
+
+}
+
+
+/* =========================================================
+   CONTADOR
+========================================================= */
+
+const textarea =
+    document.getElementById("texto");
+
+const characterCounter =
+    document.getElementById("char-count");
+
+
+function updateCharacterCount() {
+
+    if (!textarea || !characterCounter) {
+        return;
+    }
+
+    characterCounter.textContent =
+        `${textarea.value.length} caracteres`;
+
+}
+
+
+if (textarea) {
+
+    textarea.addEventListener(
+        "input",
+        updateCharacterCount
+    );
+
+    updateCharacterCount();
+
+}
+
+
+/* =========================================================
+   BOTÓN DE ANÁLISIS
+========================================================= */
+
+const analyzerForm =
+    document.querySelector(".analyzer-card form");
+
+if (analyzerForm) {
+
+    analyzerForm.addEventListener(
+        "submit",
+        function () {
+
+            const button =
+                analyzerForm.querySelector(
+                    ".analyze-button"
+                );
+
+            if (button) {
+
+                button.disabled = true;
+
+                button.innerHTML =
+                    "⏳ Analizando...";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ANIMACIONES
+========================================================= */
+
+const animatedElements =
+    document.querySelectorAll(
+        ".result-card, .step, .technology-card"
+    );
+
+if ("IntersectionObserver" in window) {
+
+    const observer =
+        new IntersectionObserver(
+            function (entries) {
+
+                entries.forEach(function (entry) {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add(
+                            "visible"
+                        );
+
+                        observer.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.12
+            }
+        );
+
+    animatedElements.forEach(function (element) {
+
+        observer.observe(element);
+
+    });
+
+}
+
+</script>
+
+</body>
+
+</html>
